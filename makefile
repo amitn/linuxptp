@@ -77,7 +77,7 @@ install: $(PRG)
 	install -p -m 644 -t $(DESTDIR)$(man8dir) $(PRG:%=%.8)
 
 clean:
-	rm -f $(OBJECTS) $(DEPEND) $(PRG)
+	rm -f $(OBJECTS) $(DEPEND) $(PRG) cscope.*
 
 distclean: clean
 	rm -f .version
@@ -96,4 +96,8 @@ ifneq ($(MAKECMDGOALS), distclean)
 endif
 endif
 
-.PHONY: all force clean distclean
+cscope:
+	find $(srcdir) -name "*.[chsS]" > cscope.files
+	cscope -b -q -k
+
+.PHONY: all force clean distclean cscope
